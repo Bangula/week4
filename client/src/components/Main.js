@@ -7,7 +7,7 @@ const Main = () => {
   return (
     <Switch>
       <Route exact path="/" component={SignIn} />
-      <Route path="/chat-room/:username?/:room?" component={Chat} />
+      <Route path="/chat-room/:id?/:room?" component={Chat} />
     </Switch>
   );
 };

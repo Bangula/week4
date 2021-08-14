@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+// const Rooms = require("../utils/roomsController");
 const Rooms = require("../utils/roomsController");
-const Users = require("../utils/usersController");
 
 router.get("/rooms", (req, res) => {
   return res.json({ data: Rooms.getRooms() });
 });
 
 router.get("/room-users", (req, res) => {
-  return res.json({ data: Users.getUsersFromRoom(req.query.room || "") });
+  return res.json({ data: Rooms.getUsersFromRoom(req.query.room || "") });
 });
 
 router.post("/rooms", (req, res) => {

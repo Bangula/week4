@@ -8,3 +8,27 @@
   left: 0;
   right: 0;
 }
+.chatPage {
+  position: fixed;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 600px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+}
+.chatContainer {
+  min-height: 400px;
+}
+.chatConversation {
+  min-height: 400px;
+}
+.messageWriteContainer {
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
