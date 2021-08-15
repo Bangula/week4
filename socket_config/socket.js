@@ -6,6 +6,10 @@ module.exports = (server) => {
   io.on("connection", (socket) => {
     console.log("Socket connection established");
 
+    io.emit("getRooms", {
+      data: Rooms.getRooms() || [],
+    });
+
     socket.on("joinRoom", (data) => {
       socket.join(data.room);
       if (data.join_user) {
