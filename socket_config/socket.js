@@ -36,6 +36,18 @@ module.exports = (server) => {
       });
     });
 
+    socket.on("disconnect", (reason) => {
+      console.log("disconnect reason: ", reason);
+      let room = Rooms.findRoom(socket.id);
+      let username = Rooms.findUser(socket.id);
+      console.log("room and username: ", room, username);
+      if (room) {
+        io.to(room).emit("message", {
+          message: `The ${username} has left the chat.`,
+        });
+      }
+    });
+
     socket.on("newMessage", (userData) => {
       console.log("new message: ", userData);
       let roomMessages = Rooms.writeMessageToRoom(

@@ -58,7 +58,7 @@ const Chat = () => {
       <div className="chatContainer flex mt-10 h-full">
         <div className="chatLeftSide w-1/3 h-full">
           {userInfo?.users?.length ? (
-            <p className="text-xs text-center opacity-75">
+            <p className="text-xs text-center opacity-75 mb-5">
               Active users in chat:
             </p>
           ) : (
@@ -68,7 +68,10 @@ const Chat = () => {
           )}
           {userInfo?.users?.length
             ? userInfo.users.map((item, index) => (
-                <p key={item + index} className="chat-list">
+                <p
+                  key={item + index}
+                  className="mb-2 w-full text-center opacity-50"
+                >
                   {item}
                 </p>
               ))

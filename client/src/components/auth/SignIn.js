@@ -63,20 +63,22 @@ const SignIn = () => {
           <p className="w-full text-center font-bold font-xs opacity-50">
             ENTER USERNAME FOR CHAT
           </p>
-          <input
-            className="w-full border border-gray-300 bg-white p-2 rounded mt-10 focus:outline-none"
-            type="text"
-            value={textField}
-            onChange={(e) => setTextField(e.target.value)}
-          />
-          <div className="text-center">
-            <button
-              className="px-5 py-2 rounded text-white bg-blue-500 mt-10"
-              onClick={handleAddUser}
-            >
-              Next
-            </button>
-          </div>
+          <form onSubmit={handleAddUser}>
+            <input
+              className="w-full border border-gray-300 bg-white p-2 rounded mt-10 focus:outline-none"
+              type="text"
+              value={textField}
+              onChange={(e) => setTextField(e.target.value)}
+            />
+            <div className="text-center">
+              <button
+                className="px-5 py-2 rounded text-white bg-blue-500 mt-10"
+                type="submit"
+              >
+                Next
+              </button>
+            </div>
+          </form>
         </div>
       )}
       {step === 2 && (
