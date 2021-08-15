@@ -21,7 +21,6 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "react-scripts": "^4.0.3",
     "socket.io": "^4.1.3"
   },
   "devDependencies": {

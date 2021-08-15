@@ -19,11 +19,19 @@
   left: 0;
   right: 0;
 }
+.messages-container {
+  overflow-y: auto;
+  padding-bottom: 70px;
+  max-height: 500px;
+}
 .chatContainer {
-  min-height: 400px;
+  height: auto;
+  overflow: auto;
 }
 .chatConversation {
-  min-height: 400px;
+  min-height: 500px;
+  height: auto;
+  overflow: auto;
 }
 .messageWriteContainer {
   height: 50px;
@@ -31,4 +39,45 @@
   left: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
+  z-index: 5;
+  background-color: #fff;
+}
+.message-item {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.message-item.message-left {
+  text-align: left;
+}
+.message-item.message-right {
+  text-align: right;
+}
+
+.message-item-content {
+  display: inline-block;
+  background-color: rgb(235, 252, 255);
+  padding: 6px 15px;
+  border-radius: 10px;
+}
+.message-item-content.message-left {
+  border-top-left-radius: 0px;
+  text-align: left;
+}
+.message-item-content.message-right {
+  border-top-right-radius: 0px;
+  text-align: left;
+  background-color: rgb(255, 235, 245);
+}
+.message-item p {
+  font-size: 14px;
+  margin-top: 7px;
+}
+.message-item span {
+  font-weight: bold;
+  opacity: 0.5;
+}
+.message-item small {
+  font-size: 10px;
+  opacity: 0.6;
+  font-style: italic;
 }

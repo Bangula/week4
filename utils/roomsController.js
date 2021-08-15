@@ -55,11 +55,17 @@ class Rooms {
   writeMessageToRoom(room, username, id, message) {
     this.rooms.forEach((item) => {
       if (item.name == room) {
-        item.messages.push({ username, id, message });
+        item.messages.push({
+          username,
+          id,
+          message,
+          created_at: moment().format("DD/MM/YYYY hh:mm"),
+        });
       }
     });
     let roomMessages = this.rooms.filter((item) => item.name == room);
-    return roomMessages[0].messages;
+    if (roomMessages.length) return roomMessages[0].messages;
+    else return [];
   }
 
   getUsers(room) {

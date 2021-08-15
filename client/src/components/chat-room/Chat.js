@@ -1,21 +1,41 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useSocketConfig from "../../hooks/useSocketConfig";
 import { UserContext } from "../context/ContextProvider";
 
 const Chat = () => {
   const [textMessage, setTextMessage] = useState("");
-  const { message: serverMessage, handleSendMessage } = useSocketConfig();
+  const {
+    message: serverMessage,
+    handleSendMessage,
+    socket,
+  } = useSocketConfig();
   const { userInfo } = useContext(UserContext);
   const params = useParams();
+  const messagesContainerRef = useRef();
 
   useEffect(() => {
     if (userInfo) console.log(userInfo);
   }, [userInfo]);
 
+  useEffect(() => {
+    if (messagesContainerRef?.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [messagesContainerRef]);
+
+  const sendCallback = () => {
+    setTextMessage("");
+    if (messagesContainerRef?.current) {
+      messagesContainerRef.current.scrollTop =
+        Number(messagesContainerRef.current.scrollHeight) + 80;
+    }
+  };
+
   const handleSend = () => {
     if (textMessage.length > 1) {
-      handleSendMessage(textMessage);
+      handleSendMessage(textMessage, sendCallback);
     }
     return;
   };
@@ -48,18 +68,36 @@ const Chat = () => {
           )}
           {userInfo?.users?.length
             ? userInfo.users.map((item, index) => (
-                <p key={item + index} className="">
+                <p key={item + index} className="chat-list">
                   {item}
                 </p>
               ))
             : null}
         </div>
         <div className="chatConversation h-full w-full bg-white p-2 border border-gray-300 rounded-lg relative">
-          <div>
+          <div className="messages-container" ref={messagesContainerRef}>
             {userInfo?.messages?.length
-              ? userInfo.messages.map((item) => (
-                  <div>
-                    <p>{item.message}</p>
+              ? userInfo.messages.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`message-item ${
+                      item.username === userInfo.username
+                        ? "message-right"
+                        : "message-left"
+                    }`}
+                  >
+                    <div
+                      className={`message-item-content ${
+                        item.username === userInfo.username
+                          ? "message-right"
+                          : "message-left"
+                      }`}
+                    >
+                      <span>{item.username}</span>
+                      <p>{item.message}</p>
+                    </div>
+                    <br />
+                    <small>{item.created_at || ""}</small>
                   </div>
                 ))
               : null}
