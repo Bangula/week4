@@ -106,6 +106,17 @@ class Rooms {
     if (filtered.length) return filtered.map((item) => item.username);
     else return [];
   }
+
+  handleDisconnect(room, userID) {
+    let filteredUsers = this.users.filter((item) => item.id != userID);
+    this.users = filteredUsers;
+    this.rooms.forEach((item) => {
+      if (item.name == room) {
+        let tempUsers = item.users.filter((item) => item.id != userID);
+        item.users = tempUsers;
+      }
+    });
+  }
 }
 
 module.exports = new Rooms();

@@ -20,7 +20,7 @@ module.exports = (server) => {
         let data2 = Rooms.addNewRoom(socket.id, data.username, data.room);
         socket.emit("joinRoom", data2);
       }
-      io.to(data.room).emit("message", {
+      socket.broadcast.to(data.room).emit("message", {
         message: `${data.username} has joined the chat`,
       });
 
@@ -46,6 +46,10 @@ module.exports = (server) => {
           message: `The ${username} has left the chat.`,
         });
       }
+      Rooms.handleDisconnect(room, socket.id);
+      io.to(room).emit("getUsers", {
+        data: Rooms.getUsersFromRoom(room) || [],
+      });
     });
 
     socket.on("newMessage", (userData) => {
