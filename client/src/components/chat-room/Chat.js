@@ -8,7 +8,7 @@ const Chat = () => {
   const {
     message: serverMessage,
     handleSendMessage,
-    socket,
+    handleLeave,
   } = useSocketConfig();
   const { userInfo } = useContext(UserContext);
   const params = useParams();
@@ -59,7 +59,7 @@ const Chat = () => {
         <div className="chatLeftSide w-1/3 h-full">
           {userInfo?.users?.length > 0 ? (
             <p className="text-xs text-center opacity-75 mb-5">
-              Active users in chat:
+              <b>Users</b>
             </p>
           ) : (
             <p className="text-xs text-center text-red-600 w-full">
@@ -68,7 +68,7 @@ const Chat = () => {
           )}
           {userInfo?.users?.length
             ? userInfo.users
-                .filter((item) => item != userInfo.username)
+                .filter((item) => item !== userInfo.username)
                 .map((item, index) => (
                   <p
                     key={item + index}
@@ -126,6 +126,12 @@ const Chat = () => {
           </div>
         </div>
       </div>
+      <button
+        onClick={handleLeave}
+        className="fixed leave-chat-btn px-4 py-1 rounded bg-blue-500 text-white"
+      >
+        Leave chat
+      </button>
     </div>
   );
 };

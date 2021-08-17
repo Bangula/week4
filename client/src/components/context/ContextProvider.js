@@ -4,7 +4,7 @@ const UserContext = React.createContext();
 
 const initialState = {};
 const reducer = (state, action) => {
-  let data = { ...state, ...action };
+  let data = Object.keys(action).length ? { ...state, ...action } : {};
   return data;
 };
 

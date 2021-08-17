@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/ContextProvider";
 import useSocketConfig from "../../hooks/useSocketConfig";
 
@@ -7,21 +7,7 @@ const SignIn = () => {
   const [roomName, setRoomName] = useState("");
   const [step, setStep] = useState(1);
   const { userInfo, setUserInfo } = useContext(UserContext);
-  const { handleJoinRoom, rooms } = useSocketConfig();
-
-  //   useEffect(() => {
-  //     getRooms();
-  //   }, []);
-
-  //   function getRooms() {
-  //     fetch("/api/rooms")
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data.data);
-  //         if (data?.data?.length) setRooms(data.data);
-  //         else setRooms([]);
-  //       });
-  //   }
+  const { handleJoinRoom, rooms, setRooms } = useSocketConfig();
 
   const handleAddUser = () => {
     if (textField.length < 4) alert("Username must be at least 4 letters long");
@@ -29,32 +15,10 @@ const SignIn = () => {
       setUserInfo({ username: textField });
       setStep(2);
     }
+    fetch("/api/rooms")
+      .then((response) => response.json())
+      .then((data) => setRooms(data?.data || []));
   };
-
-  //   const handleAddRoom = () => {
-  //     if (roomName.length < 2) return;
-  //     const data = { room: roomName };
-  //     fetch("/api/rooms", {
-  //       method: "POST", // or 'PUT'
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log("Success:", data);
-  //         if (data?.error) {
-  //           alert(data.error);
-  //           return;
-  //         }
-  //         getRooms();
-  //         setRoomName("");
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error:", error);
-  //       });
-  //   };
 
   return (
     <div className="signInContainer border border-gray-300 bg-gray-100 p-10 rounded-md shadow-xl">

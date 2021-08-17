@@ -108,14 +108,20 @@ class Rooms {
   }
 
   handleDisconnect(room, userID) {
+    let closeRoom = false;
     let filteredUsers = this.users.filter((item) => item.id != userID);
     this.users = filteredUsers;
     this.rooms.forEach((item) => {
       if (item.name == room) {
         let tempUsers = item.users.filter((item) => item.id != userID);
         item.users = tempUsers;
+        if (!tempUsers.length) closeRoom = true;
       }
     });
+    if (closeRoom) {
+      let tempRooms = this.rooms.filter((item) => item.name !== room);
+      this.rooms = tempRooms;
+    }
   }
 }
 

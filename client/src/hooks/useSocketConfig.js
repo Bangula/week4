@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import io from "socket.io-client";
 import { UserContext } from "../components/context/ContextProvider";
 
-const socket = io.connect("/");
+const socket = io.connect("/", { forceNew: true });
 
 const useSocketConfig = () => {
   const [message, setMessage] = useState("");
@@ -13,11 +13,11 @@ const useSocketConfig = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.on("message", (data) => {
+      socket.on("message2", (data) => {
         console.log("joined room: ", data);
         if (data?.message) setMessage(data.message);
         else setMessage("");
-        // setTimeout(() => setMessage(""), 5000);
+        // setTimeout(() => setMessage(""), 6000);
       });
 
       socket.on("joinRoom", (data) => {
@@ -49,7 +49,7 @@ const useSocketConfig = () => {
         setUserInfo({ users: data.data });
       });
     }
-  }, [socket, setUserInfo, history, userInfo]);
+  }, [setUserInfo, history, userInfo]);
 
   const handleJoinRoom = (roomName, joinUser) => {
     if (joinUser) {
@@ -75,7 +75,21 @@ const useSocketConfig = () => {
     if (callback) callback();
   };
 
-  return { socket, handleJoinRoom, message, rooms, handleSendMessage };
+  const handleLeave = () => {
+    socket.emit("leaveRoom");
+    setUserInfo({});
+    history.push("/");
+  };
+
+  return {
+    socket,
+    handleJoinRoom,
+    message,
+    rooms,
+    setRooms,
+    handleSendMessage,
+    handleLeave,
+  };
 };
 
 export default useSocketConfig;
