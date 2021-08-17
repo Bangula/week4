@@ -4,4 +4,4 @@
 
 1.run NPM INSTALL in root and /client folders.\
 \
-2.run NPM RUN DEV in root folder to start both server and client.\
+2.run NPM RUN DEV in root folder to start both server and client.
