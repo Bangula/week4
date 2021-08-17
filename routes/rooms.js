@@ -13,7 +13,6 @@ router.get("/room-users", (req, res) => {
 });
 
 router.post("/rooms", (req, res) => {
-  console.log(req.body);
   let result = Rooms.addNewRoom(req.body.room);
   if (result) return res.json({ data: Rooms.getRooms() });
   else

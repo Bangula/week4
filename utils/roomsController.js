@@ -53,7 +53,6 @@ class Rooms {
     this.rooms.forEach((item) => {
       if (item.name == room) {
         item.users.push({ userCheck, id });
-        console.log("testest: ", userCheck, id);
       }
     });
     return { username: userCheck, id, room };
@@ -102,7 +101,6 @@ class Rooms {
   getUsersFromRoom(room) {
     let filtered = this.users.filter((item) => item.room == room);
 
-    console.log("users: ", filtered);
     if (filtered.length) return filtered.map((item) => item.username);
     else return [];
   }

@@ -15,10 +15,6 @@ const Chat = () => {
   const messagesContainerRef = useRef();
 
   useEffect(() => {
-    if (userInfo) console.log(userInfo);
-  }, [userInfo]);
-
-  useEffect(() => {
     if (messagesContainerRef?.current) {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;

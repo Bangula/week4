@@ -14,15 +14,12 @@ const useSocketConfig = () => {
   useEffect(() => {
     if (socket) {
       socket.on("message2", (data) => {
-        console.log("joined room: ", data);
         if (data?.message) setMessage(data.message);
         else setMessage("");
         // setTimeout(() => setMessage(""), 6000);
       });
 
       socket.on("joinRoom", (data) => {
-        console.log("join room: ", data);
-
         if (data?.message) {
           alert(data.message);
         } else {
@@ -31,21 +28,16 @@ const useSocketConfig = () => {
         }
       });
       socket.on("getRooms", (data) => {
-        console.log("get rooms:", data.data);
         setRooms(data.data);
       });
 
       socket.on("getMessages", (data) => {
-        console.log("messages: ", data);
         if (data?.messages) setUserInfo({ messages: data.messages });
       });
       socket.on("newMessage", (data) => {
-        console.log("messages: ", data);
         if (data?.messages) setUserInfo({ messages: data.messages });
       });
       socket.on("getUsers", (data) => {
-        console.log("get users:", data.data);
-
         setUserInfo({ users: data.data });
       });
     }

@@ -4,13 +4,11 @@ const Rooms = require("../utils/roomsController");
 module.exports = (server) => {
   const io = socket(server);
   io.on("connection", (socket) => {
-    console.log("Socket connection established");
-
     socket.on("joinRoom", (data) => {
       socket.join(data.room);
       if (data.join_user) {
         let data1 = Rooms.joinUser(socket.id, data.username, data.room);
-        console.log("data1: ", data1);
+
         socket.emit("joinRoom", data1);
       } else {
         let data2 = Rooms.addNewRoom(socket.id, data.username, data.room);
@@ -30,7 +28,6 @@ module.exports = (server) => {
     });
 
     socket.on("newMessage", (userData) => {
-      console.log("new message: ", userData);
       let roomMessages = Rooms.writeMessageToRoom(
         userData.room,
         userData.username,
@@ -40,13 +37,12 @@ module.exports = (server) => {
       io.to(userData.room).emit("newMessage", {
         messages: roomMessages,
       });
-      console.log("from server room messages: ", roomMessages);
     });
 
     const leaveRoomLogic = () => {
       let room = Rooms.findRoom(socket.id);
       let username = Rooms.findUser(socket.id);
-      console.log("room and username: ", room, username);
+
       if (room) {
         io.to(room).emit("message2", {
           message: `The ${username} has left the chat.`,
